@@ -7,7 +7,7 @@ Inputs:
     length = are length in meters
 
 Output:
-    Resistance in ohms"""
+    Resistance in ohms to two decimal places"""
     
-    Resistance = 28710 * length / Ifault**1.4    
+    Resistance = round(28710 * length / Ifault**1.4, 2)
     return Resistance
