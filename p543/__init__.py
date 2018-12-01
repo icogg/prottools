@@ -6,11 +6,11 @@ def ct_perf(CT=[1,1], IFault=[], polar=True,ends = 2,**kwargs):
 	"""The inputs for the function are:
 		
 		CT: 	The CT ratio entered as [prim,sec] in amperes. The acutal values used 
-					are calculated using the maximum (CT Primary) and minimum (CT Secondary)
+			are calculated using the maximum (CT Primary) and minimum (CT Secondary)
 	 
 		IFault:	The primary in amperes current that is used to determine the CT 
-						performance. The values entered are [Magunitude, Angle] unless the switch
-						polar is set to False. When set False the input is [Real, Imaginary]
+			performance. The values entered are [Magunitude, Angle] unless the switch
+			olar is set to False. When set False the input is [Real, Imaginary]
 		polar:	(Default = True), when True the current input is in polar
 		
 		Class:	The class of the CT being assesed, select from 2.5P, 5P, 10P or PX
@@ -18,26 +18,26 @@ def ct_perf(CT=[1,1], IFault=[], polar=True,ends = 2,**kwargs):
 		ALF:	The accuracy limit factor of the given CT (Default is 20)
 		
 		Vcomp:	The compliance voltage of the CT when specified in accordance with
-						AS1675. Either the Vcomp or the Rated Burden must be specified. Where
-						both are specified the compliance voltage is used.
+			AS1675. Either the Vcomp or the Rated Burden must be specified. Where
+			both are specified the compliance voltage is used.
 						
 		RatedBurden: 	The name plate burden in VA for class P CTs. This value is
-									not required for class X CTs or those with a compliance voltage 
-									specified.
+				not required for class X CTs or those with a compliance voltage 
+				pecified.
 								
 		ActualBurden:	Optional, the actual burden in VA connected to the CT 
-									terminals. When not specified the Actual Burden is assumed to be the 
-									same as the rated burden. 
+				terminals. When not specified the Actual Burden is assumed to be the 
+				same as the rated burden. 
 									
 		Ek:		The Vk or Ek specified by the vendor in volts. This value is only used 
-					for class X CTs. 
+				for class X CTs. 
 		
 		Rct: 	The internal resistance of the CT in ohms. Use 'estimate' for 
-					25mOhms/turn --> 5A CTs
-					100mOhms / Turn --?> 1A CTs
+			25mOhms/turn --> 5A CTs
+			100mOhms / Turn --?> 1A CTs
 					
 		Rburden:	The burden of the relays and wiring conneted to the CT terminals.
-							Rburden is only used for class X CTs and is specified in Ohms. 
+				Rburden is only used for class X CTs and is specified in Ohms. 
 							
 		ends: 	(default = 2) The number of terminals being used"""
 							
