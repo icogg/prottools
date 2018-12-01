@@ -56,7 +56,6 @@ def ct_perf(CT=[1,1], IFault=[], polar=True,ends = 2,**kwargs):
 		CTPrim = max(CT)
 		CTSec = min(CT)
 		CTRatio = CTPrim / CTSec
-		return print(CTR)
 	else:
 		return print('CT Ratio required')
 			
@@ -75,7 +74,6 @@ def ct_perf(CT=[1,1], IFault=[], polar=True,ends = 2,**kwargs):
 		elif RatedBurden in locals():
 			Ek = (RatedBurden * ALF) / CTSec + (Rct * ALF * CTSec)
 	
-
 	K = Ek / (CTSec * (Rct + Rburden))
 	
 	Ipu = abs(Ifault) / CTPrim
