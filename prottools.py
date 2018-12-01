@@ -11,3 +11,6 @@ Output:
     
     Resistance = round(28710 * length / Ifault**1.4, 2)
     return Resistance
+
+def testmodule(n):
+    return n += 1
