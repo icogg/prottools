@@ -1,3 +1,6 @@
+import cmath
+import math
+
 def ct_perf(CT=[1,1], IFault=[], polar=True,ends = 2,**kwargs):
 	"""The inputs for the function are:
 		
