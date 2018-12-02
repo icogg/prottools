@@ -1,6 +1,6 @@
 import cmath
 import math
-from .currenttransfomer import *
+from .currenttransformer import *
 from .linediff import *
 from .linedetails import *
 
