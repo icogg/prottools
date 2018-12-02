@@ -1,3 +1,5 @@
+import math
+
 def _CT(CT=[]):
 	"""Input a list containing [CTPrimary, CTSecondary]. The return is a 
 	 dictionary with primary, secondary and ratio"""
