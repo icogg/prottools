@@ -1,8 +1,8 @@
 import cmath
 import math
-from .currenttransformer import *
-from .linediff import *
-from .linedetails import *
+from .currenttransformer import ct_perf
+from .linediff import diff
+from .linedetails import line_details
 
 			
 def _CT(CT=[]):
