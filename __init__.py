@@ -1,4 +1,4 @@
-from vanwarrington import vanwarrinton
+from vanwarrington import *
 
 def apparentimpedance(polar=True
                   , Vrelay = []
