@@ -1,2 +1,3 @@
 def dcinputs(substation_dc=110):
-  return
+  result = substation_dc
+  return result
