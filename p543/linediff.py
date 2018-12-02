@@ -1,3 +1,20 @@
+def _CT(CT=[]):
+	"""Input a list containing [CTPrimary, CTSecondary]. The return is a 
+	 dictionary with primary, secondary and ratio"""
+	if len(CT) == 2:
+		CTPrim = max(CT)
+		CTSec = min(CT)
+		CTRatio = CTPrim / CTSec
+	else:
+		return print('CT Ratio required')
+	return{'CTPrim':CTPrim
+	       , 'CTSec':CTSec
+	       , 'CTRatio':CTRatio
+	      }
+
+def _myround(x, base=5):
+	return base * round(float(x) / base)
+
 def diff(ends=2, kV=132, nF=0, LocalCT=[], Remote1CT=[], Remote2CT=[], freq=50):
 	
 	if ends==2:
