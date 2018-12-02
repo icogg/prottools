@@ -1,1 +1,1 @@
-from ._systemchecks import syschecks
+from ._syschecks import syschecks
