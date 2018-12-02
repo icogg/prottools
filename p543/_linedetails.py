@@ -1,3 +1,6 @@
+import math
+import cmath
+
 def line_details(Z1_polar=True, Z1=[]
                  , Z0_polar=True, Z0=[]
                  , length=1
