@@ -1,0 +1,2 @@
+def dcinputs(substation_dc=110):
+  return
