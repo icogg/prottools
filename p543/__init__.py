@@ -2,6 +2,7 @@ import cmath
 import math
 from .currenttransfomer import *
 from .linediff import *
+from .linedetails import *
 
 			
 def _CT(CT=[]):
