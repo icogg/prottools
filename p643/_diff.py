@@ -1,5 +1,6 @@
 def _myround(x, base=5):
 	return base * round(float(x) / base)
+	
 
 def tapspill(hv=[], lv=[], tv=[]):
 	"""Calculates the maximum error created by tap changers on the transfomer
@@ -11,17 +12,17 @@ def tapspill(hv=[], lv=[], tv=[]):
 	Output
 			spill in per unit
 	"""
-	if len(hv)==2:
+	if len(hv) == 2:
 		hverror = max(hv) / (((max(hv) - min(hv)) / 2 + min(hv))) - 1
 	else:
 		hverror = 0
- 
-	if len(lv)==2:
-		lverror = max(lv) / (((max(lv) - min(lv)) / 2 + min(lv))) - 1 
+
+	if len(lv) == 2:
+		lverror = max(lv) / (((max(lv) - min(lv)) / 2 + min(lv))) - 1
 	else:
 		lverror = 0
-		
-	if len(tv)==2:
+	
+	if len(tv) == 2:
 		tverror = max(tv) / (((max(tv) - min(tv)) / 2 + min(tv))) - 1
 	else:
 		tverror = 0
@@ -32,17 +33,17 @@ def tapspill(hv=[], lv=[], tv=[]):
 
 
 
-def biaseddiff(hv=[],lv=[],tv=[],relayerror=5,excitationerror=3,cterror=5):
+def biaseddiff(hv=[], lv=[], tv=[], relayerror=5, excitationerror=3, cterror=5):
 	try:
 		relayerror = relayerror / 100
 		excitationerror = excitationerror / 100
 		cterror = cterror / 100
 	except:
-		return print ('input error')
+		return print('input error')
 	
-	taperror = tapspill(hv,lv,tv)
+	taperror = tapspill(hv, lv, tv)
 	
-	k1 = (1 + cterror) - ((1 - cterror) / (1 + taperror)) + relayerror + excitationerror
+	k1 = ((1 + cterror) - ((1 - cterror) / (1 + taperror))+ relayerror+ excitationerror)
 	
 	k1 = _myround(max(k1, 0.2), 0.05)
 	
