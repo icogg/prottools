@@ -28,6 +28,7 @@ def tapspill(hv=[], lv=[], tv=[]):
 
 
 def biaseddiff(hv=[], lv=[], tv=[], relayerror=5, excitationerror=3, cterror=5):
+	""""""	
 	try:
 		relayerror = relayerror / 100
 		excitationerror = excitationerror / 100
