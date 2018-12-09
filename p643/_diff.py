@@ -2,6 +2,11 @@ def _myround(x, base=5):
 	return base * round(float(x) / base)
 	
 
+def _windingdiff(x):
+	diff = max(x) / (((max(x) - min(x)) / 2 + min(x))) - 1
+	return diff
+
+
 def tapspill(hv=[], lv=[], tv=[]):
 	"""Calculates the maximum error created by tap changers on the transfomer
 	Input where fitted:
@@ -12,20 +17,9 @@ def tapspill(hv=[], lv=[], tv=[]):
 	Output
 			spill in per unit
 	"""
-	if len(hv) == 2:
-		hverror = max(hv) / (((max(hv) - min(hv)) / 2 + min(hv))) - 1
-	else:
-		hverror = 0
-
-	if len(lv) == 2:
-		lverror = max(lv) / (((max(lv) - min(lv)) / 2 + min(lv))) - 1
-	else:
-		lverror = 0
-	
-	if len(tv) == 2:
-		tverror = max(tv) / (((max(tv) - min(tv)) / 2 + min(tv))) - 1
-	else:
-		tverror = 0
+	hverror = _windingdiff(hv) if len(hv) == 2 else 0
+	lverror = _windingdiff(lv) if len(lv) == 2 else 0
+	tverror = _windingdiff(tv) if len(tv) == 2 else 0
 
 	taperror = max([hverror + lverror, lverror + tverror, tverror + hverror])
 	
@@ -49,6 +43,8 @@ def biaseddiff(hv=[], lv=[], tv=[], relayerror=5, excitationerror=3, cterror=5):
 	
 	k2 = 0.8
 	
+	Is1 = 0.2
+	
 	Is2 = 1
 	
-	return {'k1': k1, 'k2': k2, 'Is2': Is2}
+	return {'k1': k1, 'k2': k2, 'Is2': Is2, 'Is1':Is1}
