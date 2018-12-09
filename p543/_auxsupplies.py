@@ -1,6 +1,9 @@
 def dcinputs(DCNominal=110):
 	"""Enter the substation nominal voltage eg DCNominal = 48
-	Return the required setting for the MiCOM Px4x platform"""
+	Return the required setting for the MiCOM Px4x platform
+	
+	output is a dictionary with the suggested setting
+	"""
 	result = 'Not Valid'
 	if DCNominal >= 220:
 		result = '220/250V'
