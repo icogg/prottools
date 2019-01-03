@@ -66,8 +66,9 @@ class DoubleWyeCapBank:
 		return r
 	
 	def Ve(self, f):
-		"""check this formula"""
-		return 1
+		"""The actual per-unit voltage on the affected elements, basedon the actual
+		voltage on the affected unit."""
+		return self.Vcu(f) * self.CapCan.Vg(f)
 	
 	def Iu(self, f):
 		"""The current through the affected capacitor unit, per-unit of the value
@@ -106,7 +107,7 @@ class DoubleWyeCapBank:
 		assuming the neutral-to-ground (zero sequence) voltage is applied at the
 		neutral of the unaffected wye, which is half the of the bank].
 		"""
-		return (3 * self.Vng(f) * self.G * (self.Pt * self.Pa)) / self.Pt
+		return (3 * self.Vng(f) * self.G * (self.Pt - self.Pa)) / self.Pt
 		
 	def Id(self, f):
 		"""For grounded wye-wye banks where the difference in the neutral current
@@ -154,8 +155,8 @@ class DoubleWyeCapBank:
 				pass
 			else:
 				return print(
-										'Blown Fuses {}, Element Voltage {:1.3f}, Unit Voltage {:1.3f}'
-										.format(fuse - 1, self.CapCan.Vg(fuse - 1), self.Vcu(fuse), sep=' ')
+						'Blown Fuses {}, Element Voltage {:1.3f}, Unit Voltage {:1.3f}'
+						.format(fuse - 1, self.CapCan.Vg(fuse - 1), self.Vcu(fuse), sep=' ')
 										)
 		return print(self.CapCan.N)
 
@@ -184,19 +185,6 @@ class CapCan:
 		the capacitance Ci.
 		"""
 		return (self.Su * self.Ci(f)) / (self.Ci(f) * (self.Su - 1) + 1)
-
-
-samplebank = DoubleWyeCapBank(
-															S=4,
-															Pt=11,
-															Pa=6,
-															P=3,
-															CapCan=CapCan(
-																						N=14,
-																						Su=3
-																						),
-															Grounded=False
-															)
 
 
 def _wrapper(funct, *arg):
