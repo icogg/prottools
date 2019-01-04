@@ -2,6 +2,8 @@ from .vanwarrington import *
 from .apparentimpedance import *
 from .capbank import *
 
+__version__ = '0.1'
+
 
 class PDF(object):
   def __init__(self, pdf, size=(900,600)):
