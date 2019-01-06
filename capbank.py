@@ -142,7 +142,7 @@ class DoubleWyeCapBank:
 				return print(
 						'Blown Fuses {}, Element Voltage {:1.3f}, Unit Voltage {:1.3f}'
 						.format(fuse - 1, self.CapCan.Vg(fuse - 1), self.Vcu(fuse), sep=' ')
-										)
+					)
 		return print(self.CapCan.N)
 		
 
@@ -169,10 +169,10 @@ class HCapbank():
 		phase, assuming the capacitance of one healthy capacitor unit is 1 per-unit.
 		"""
 		return (
-						(self.CapCan.Cu(f) + self.P - 1) * self.P /
-						((self.CapCan.Cu(f) + self.P - 1) * (self.St - 1) + self.P) +
-						((self.Pt - self.P)/self.St)
-						)
+			(self.CapCan.Cu(f) + self.P - 1) * self.P /
+			((self.CapCan.Cu(f) + self.P - 1) * (self.St - 1) + self.P) +
+			((self.Pt - self.P)/self.St)
+			)
 
 	def Cp(self, f):
 		"""The capacitance of the phase from end to end, assuming the capacitance of
@@ -200,20 +200,20 @@ class HCapbank():
 		delta bank.
 		"""
 		return (
-						- self.Vln(f) *
-						((self.St / self.S) - self.Vh(f)) *
-						((1 / (self.S - self.St))+(1 / self.St)) *
-						(self.S * (self.Pt - self.Pa) / self.Pt)
-						)
+			- self.Vln(f) *
+			((self.St / self.S) - self.Vh(f)) *
+			((1 / (self.S - self.St))+(1 / self.St)) *
+			(self.S * (self.Pt - self.Pa) / self.Pt)
+			)
 
 	def Vcu(self, f):
 		"""The voltage across the affected capacitor unit, per-unit of the value with
 		no fuses blown.
 		"""
 		return (
-						self.Vln(f) * self.Vh(f) * self.P * self.S /
-						(self.P + (self.St - 1) * (self.CapCan.Cu(f) + self.P - 1))
-						)
+			self.Vln(f) * self.Vh(f) * self.P * self.S /
+			(self.P + (self.St - 1) * (self.CapCan.Cu(f) + self.P - 1))
+			)
 	
 	def Ve(self, f):
 		"""The voltage across the remaining elements in the affected element group
@@ -221,9 +221,9 @@ class HCapbank():
 		value with no fuses blown.
 		"""
 		return (
-						self.Vcu(f) * self.CapCan.Su * self.CapCan.N /
-						(self.CapCan.Su * (self.CapCan.N - f) + f)
-						)
+			self.Vcu(f) * self.CapCan.Su * self.CapCan.N /
+			(self.CapCan.Su * (self.CapCan.N - f) + f)
+			)
 
 	def Iu(self, f):
 		"""The current through the affected capacitor unit, per-unit of the value
@@ -240,8 +240,7 @@ class HCapbank():
 								'Ih', 'Vcu', 'Ve', 'Iu'
 								]
 		_printelements(self, functionlist)
-
-
+	
 class CapCan:
 	def __init__(self, N, Su):
 		self.N = N
