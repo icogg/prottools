@@ -27,11 +27,11 @@ class Idmt:
 		the current is less than the pickup the value returned is No Op """
 		if I > self.pickup + 0.000001:
 			return max(
-							self.tms *
-							self.beta /
-							(min((I / self.pickup), self.deftime)**self.alpha - 1) +
-							self.adder, self.mintime
-							)
+				self.tms *
+				self.beta /
+				(min((I / self.pickup), self.deftime)**self.alpha - 1) +
+				self.adder, self.mintime
+				)
 		else:
 			return 'No Op'
 			
@@ -105,10 +105,10 @@ class Pltidmt:
 
 def _curvelup(curve):
 	curves = {
-						'SI': {'alpha': 0.02, 'beta': 0.14},
-						'VI': {'alpha': 1, 'beta': 13.5},
-						'EI': {'alpha': 2, 'beta': 80}
-						}
+		'SI': {'alpha': 0.02, 'beta': 0.14},
+		'VI': {'alpha': 1, 'beta': 13.5},
+		'EI': {'alpha': 2, 'beta': 80}
+		}
 	for k, v in curves.items():
 		if curve.upper() == k:
 			return v
