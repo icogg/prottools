@@ -120,32 +120,14 @@ class DoubleWyeCapBank:
 		if self.Pt != 2 * self.Pa:
 			return 'Invalid Arrangement'
 		return self.Vln(f) * (1 - self.Cp(f))
-
+			
 	def printelements(self):
-		"""Outputs the per unit values for each element for the range of fuses that
-		may operate
-		"""
-		# list all of the functions that are shown in the standard
 		functionlist = [
 								'CapCan.Ci', 'CapCan.Vg', 'CapCan.Cu',
 								'Cg', 'Cs', 'Cp', 'Vng', 'Vln', 'Vcu', 'Ve',
 								'Iu', 'Ist', 'Iph', 'Ig', 'In', 'Id'
 								]
-		# Create a header row
-		hdr = '{:<14}'.format('Element')
-		for i in range(self.CapCan.N + 1):
-			hdr = hdr + str('{:<7}'.format(i))
-		print(hdr)
-		
-		# add all of the per unit values against the element name
-		for item in functionlist:
-			vals = '{:<10}'.format(item)
-			for i in range(self.CapCan.N + 1):
-				try:
-					vals = vals + ' ' + str('{:1.4f}'.format(_wrapper(eval('self.' + item), i)))
-				except:
-					vals = vals + ' ' + 'x.xxxx'
-			print(vals)
+		_printelements(self, functionlist)
 	
 	def ubsetting(self, elelim=1.5, unitlim=1.1):
 		"""Calcualate the number of fuses that can operate without stressing the
@@ -162,45 +144,13 @@ class DoubleWyeCapBank:
 						.format(fuse - 1, self.CapCan.Vg(fuse - 1), self.Vcu(fuse), sep=' ')
 										)
 		return print(self.CapCan.N)
-
-
-class CapCan:
-	def __init__(self, N, Su):
-		self.N = N
-		self.Su = Su
 		
-	def Ci(self, f):
-		"""The per-unit capacitance of the group, based on the number of blown fuses.
-		This formula is not explicitly shown in the standard for H-Bridge banks and
-		is reduceded out for the CapCan Cu calculation. This reduction is not made in
-		this calculator and is kept as an explicit step.
-		"""
-		return (self.N - f) / self.N
-	
-	def Vg(self, f):
-		"""The voltage that would occur across the affected group of elements where
-		the fuses are blowing if there was 1 per-unit voltage on the capacitor unit.
-		For the calculation, the capacitance of all groups except the affected group
-		is 1 per-unit. The capacitance of the affected group is Ci.
-		"""
-		return (self.Su * self.N) / ((self.Su - 1) * (self.N - f) + self.N)
-	
-	def Cu(self, f):
-		"""The capacitance of the affected capacitor unit, assuming all groups except
-		the affected group have 1 per-unit capacitance and the affected group has
-		the capacitance Ci.
-		
-		The formula used is a slightly different format to that of the standard as it
-		does uses the Ci function and not the elemental parts of Ci.
-		"""
-		return (self.Su * self.Ci(f)) / (self.Ci(f) * (self.Su - 1) + 1)
-
 
 class HCapbank():
 	"""This class is used to store a capacitor bank and provide the calculations
-	in accordance with IEEE Std C37.99-2012. The class is for a fused double wye
-	bank. The class calls on a subclass CapCan to provide the details of the cans
-	used in the bank.
+	in accordance with IEEE Std C37.99-2012. The class is for a fused H-Bridge
+	capacitor bank. The class calls on a subclass CapCan to provide the details
+	of the cans used in the bank.
 	"""
 	def __init__(self, S, St, Pt, Pa, P, CapCan, Grounded=False):
 		self.S = S
@@ -246,8 +196,8 @@ class HCapbank():
 	
 	def Ih(self, f):
 		"""The current in the H leg, per-unit of the normal total phase current for a
-		 wye-connected or single-phase bank or per-unit of total leg current for a
-		 delta bank.
+		wye-connected or single-phase bank or per-unit of total leg current for a
+		delta bank.
 		"""
 		return (
 						- self.Vln(f) *
@@ -280,35 +230,68 @@ class HCapbank():
 		with no fuses blown. The value for SE indicates the power frequency current
 		available to blow the fuse on a faulted element. This value may be used to
 		estimate the maximum clearing time of the fuse (assuming no discharge from
-		parallel elements into the faulted one). 
+		parallel elements into the faulted one).
 		"""
 		return self.Vcu(f) * self.CapCan.Cu(f)
-														
+	
 	def printelements(self):
-		"""Outputs the per unit values for each element for the range of fuses that
-		may operate
-		"""
-		# list all of the functions that are shown in the standard
 		functionlist = [
-								'CapCan.Ci', 'CapCan.Cu', 'Chn',
-								'Cp', 'Vln', 'Vh',
+								'CapCan.Ci', 'CapCan.Cu', 'Chn', 'Cp', 'Vln', 'Vh',
 								'Ih', 'Vcu', 'Ve', 'Iu'
 								]
-		# Create a header row
-		hdr = '{:<14}'.format('Element')
-		for i in range(self.CapCan.N + 1):
-			hdr = hdr + str('{:<7}'.format(i))
-		print(hdr)
+		_printelements(self, functionlist)
+
+
+class CapCan:
+	def __init__(self, N, Su):
+		self.N = N
+		self.Su = Su
 		
-		# add all of the per unit values against the element name
-		for item in functionlist:
-			vals = '{:<10}'.format(item)
-			for i in range(self.CapCan.N + 1):
-				try:
-					vals = vals + ' ' + str('{:1.4f}'.format(_wrapper(eval('self.' + item), i)))
-				except:
-					vals = vals + ' ' + 'x.xxxx'
-			print(vals)
+	def Ci(self, f):
+		"""The per-unit capacitance of the group, based on the number of blown fuses.
+		This formula is not explicitly shown in the standard for H-Bridge banks and
+		is reduceded out for the CapCan Cu calculation. This reduction is not made in
+		this calculator and is kept as an explicit step.
+		"""
+		return (self.N - f) / self.N
+	
+	def Vg(self, f):
+		"""The voltage that would occur across the affected group of elements where
+		the fuses are blowing if there was 1 per-unit voltage on the capacitor unit.
+		For the calculation, the capacitance of all groups except the affected group
+		is 1 per-unit. The capacitance of the affected group is Ci.
+		"""
+		return (self.Su * self.N) / ((self.Su - 1) * (self.N - f) + self.N)
+	
+	def Cu(self, f):
+		"""The capacitance of the affected capacitor unit, assuming all groups except
+		the affected group have 1 per-unit capacitance and the affected group has
+		the capacitance Ci.
+		
+		The formula used is a slightly different format to that of the standard as it
+		does uses the Ci function and not the elemental parts of Ci.
+		"""
+		return (self.Su * self.Ci(f)) / (self.Ci(f) * (self.Su - 1) + 1)
+		
+
+def IBank(BankMVAR, BankkV):
+	'''Returns the bank full load current, the bank MVAR is the total MVAR at the
+	bank voltage.
+	'''
+	return Bank_MVAR * 1000 / (np.sqrt(3) * Bank_kV)
+
+
+def CapIDMT_OCPickup(Bank_MVAR, Bank_kV, Grounded=True):
+	"""Returns the expected bank overcurrent pickup, the bank MVAR is the total
+	MVAR at the bank voltage.
+	"""
+	I_full_load = Bank_MVAR * 1000 / (np.sqrt(3) * Bank_kV)
+	
+	if Grounded:
+		pickup = I_full_load * 1.35
+	else:
+		pickup = I_full_load * 1.25
+	return pickup
 
 
 def _wrapper(funct, *arg):
@@ -318,14 +301,24 @@ def _wrapper(funct, *arg):
 	return funct(*arg)
 
 
-def IBank(BankMVAR, BankkV):
-	'''Returns the bank full load current, the bank MVAR is the total MVAR at the
-	bank voltage.
-	'''
-	return BankMVAR * 1000 / (np.sqrt(3) * BankkV)
-
-
-
-	
-
-
+def _printelements(bank, functionlist):
+	"""this is an interally called fuction to format and output the elemental
+	equation results that are displayed as part of the standard. The function list
+	is list of the module names and bank is the capacitor object that has been
+	created. 
+	"""
+			# Create a header row
+		hdr = '{:<14}'.format('Element')
+		for i in range(bank.CapCan.N + 1):
+			hdr = hdr + str('{:<7}'.format(i))
+		print(hdr)
+		
+		# add all of the per unit values against the element name
+		for function in functionlist:
+			vals = '{:<10}'.format(function)
+			for i in range(bank.CapCan.N + 1):
+				try:
+					vals = vals + ' ' + str('{:1.4f}'.format(_wrapper(eval('bank.' + function), i)))
+				except:
+					vals = vals + ' ' + 'x.xxxx'
+			print(vals)
