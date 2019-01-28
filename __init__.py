@@ -1,6 +1,7 @@
 from .vanwarrington import *
 from .apparentimpedance import *
 from .capbank import *
+from .diffcharacteristic import *
 
 __version__ = '0.1'
 
