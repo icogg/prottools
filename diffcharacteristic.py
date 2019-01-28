@@ -17,25 +17,26 @@ class L90_2Term:
 		"""The rest function calculates the restraint current for a line
 		differental application using the set characteristic along with the local
 		and remote currents. Once the line end currents are calculated, they are
-		combined and returned. Inputs:
-					Iloc = Local Current
-					Irem = Remote Current (this should be set negative to show outflow)
+		combined and returned. 
+		Inputs:
+			Iloc = Local Current
+			Irem = Remote Current (this should be set negative to show outflow)
 		"""
 		if Iloc ** 2 < self.BP ** 2:
 			LocRestSq = (2 * self.S1 ** 2 * np.abs(Iloc) ** 2)
 		else:
 			LocRestSq = (
-										2 * ((self.S2 * Iloc)**2 - (self.S2 * self.BP)**2) +
-										2 * (self.S1 * self.BP)**2
-									)
+					2 * ((self.S2 * Iloc)**2 - (self.S2 * self.BP)**2) +
+					2 * (self.S1 * self.BP)**2
+					)
 
 		if Irem ** 2 < self.BP ** 2:
 			RemRestSq = (2 * self.S1 ** 2 * np.abs(Irem) ** 2)
 		else:
 			RemRestSq = (
-										2 * ((self.S2 * Irem)**2 - (self.S2 * self.BP)**2) +
-										2 * (self.S1 * self.BP)**2
-									)
+					2 * ((self.S2 * Irem)**2 - (self.S2 * self.BP)**2) +
+					2 * (self.S1 * self.BP)**2
+					)
 	
 		return np.sqrt(LocRestSq + RemRestSq)
 
@@ -57,14 +58,14 @@ class L90_2Term:
 	def sysvals(self, Irem=-1):
 		"""sysvalues are used to calculate the operating point given a characteristic
 		and remote outflow current.
-			Inputs:
-					Irem = Remote Current (this should be set negative to show outflow)
-					S1 = Diff characteristic slope 1
-					S2 = Diff characteristic slope 2
-					BP = Slope 1 to 2 change over
-					P  = Pickup
-			Output is a dictionary that contains, Local and Remote Currents, Diff and
-			Restraint
+		Inputs
+			Irem = Remote Current (this should be set negative to show outflow)
+			S1 = Diff characteristic slope 1
+			S2 = Diff characteristic slope 2
+			BP = Slope 1 to 2 change over
+			P  = Pickup
+		Output is a dictionary that contains, Local and Remote Currents, Diff and
+		Restraint
 		"""
 	
 		Iloc = - Irem
@@ -99,23 +100,19 @@ class L90_2Term:
 	def plotcurve(self, plotrange=10):
 		fig = plt.figure()
 		plt.plot(
-						self.plotpairs(
-										ascending=False,
-										plotrange=plotrange
-										)[0],
-						self.plotpairs(
-										ascending=False,
-										plotrange=plotrange
-										)[1]
-						)
+			self.plotpairs(
+					ascending=False,
+					plotrange=plotrange
+					)[0],
+			self.plotpairs(
+					ascending=False,
+					plotrange=plotrange
+					)[1]
+			)
 		plt.plot(
-						self.plotpairs(
-										plotrange=plotrange
-										)[0],
-						self.plotpairs(
-										plotrange=plotrange
-										)[1]
-						)
+			self.plotpairs(plotrange=plotrange)[0],
+			self.plotpairs(plotrange=plotrange)[1]
+			)
 		plt.xlim(0, plotrange)
 		plt.ylim(0, plotrange)
 		plt.grid(True)
@@ -129,12 +126,12 @@ class L90_2Term:
 		"""the table function returns a table of results that show the resistive
 		coverage for different voltages and CT ratios. By changing the outflow value
 		from 1.0pu the system can be tested for different sensitivities.
-			Inputs:
-					outflow = amount of current leaving the remote end 1.0pu default
-					S1 = Diff characteristic slope 1
-					S2 = Diff characteristic slope 2
-					BP = Slope 1 to 2 change over
-					P  = Pickup
+		Inputs:
+			outflow = amount of current leaving the remote end 1.0pu default
+			S1 = Diff characteristic slope 1
+			S2 = Diff characteristic slope 2
+			BP = Slope 1 to 2 change over
+			P = Pickup
 		"""
 		voltages = [11, 22, 33, 66, 110, 132, 220]
 		cts = [100, 200, 400, 600, 800, 1200, 2000]
@@ -174,25 +171,26 @@ class L90_3Term:
 		"""The rest function calculates the restraint current for a line
 		differental application using the set characteristic along with the local
 		and remote currents. Once the line end currents are calculated, they are
-		combined and returned. Inputs:
-					Iloc = Local Current
-					Irem = Remote Current (this should be set negative to show outflow)
+		combined and returned. 
+		Inputs:
+			Iloc = Local Current
+			Irem = Remote Current (this should be set negative to show outflow)
 		"""
 		if Iloc ** 2 < self.BP ** 2:
 			LocRestSq = (4/3) * (self.S1 ** 2 * np.abs(Iloc) ** 2)
 		else:
 			LocRestSq = (
-										(4/3) * ((self.S2 * Iloc)**2 - (self.S2 * self.BP)**2) +
-										(4/3) * (self.S1 * self.BP)**2
-									)
+					(4/3) * ((self.S2 * Iloc)**2 - (self.S2 * self.BP)**2) +
+					(4/3) * (self.S1 * self.BP)**2
+					)
 
 		if Irem ** 2 < self.BP ** 2:
 			RemRestSq = (4/3) * (self.S1 ** 2 * np.abs(Irem) ** 2)
 		else:
 			RemRestSq = (
-										(4/3) * ((self.S2 * Irem) ** 2 - (self.S2 * self.BP) ** 2) +
-										(4/3) * (self.S1 * self.BP) ** 2
-									)
+					(4/3) * ((self.S2 * Irem) ** 2 - (self.S2 * self.BP) ** 2) +
+					(4/3) * (self.S1 * self.BP) ** 2
+					)
 	
 		return np.sqrt(LocRestSq + RemRestSq)
 
@@ -214,14 +212,14 @@ class L90_3Term:
 	def sysvals(self, Irem=-1):
 		"""sysvalues are used to calculate the operating point given a characteristic
 		and remote outflow current.
-			Inputs:
-					Irem = Remote Current (this should be set negative to show outflow)
-					S1 = Diff characteristic slope 1
-					S2 = Diff characteristic slope 2
-					BP = Slope 1 to 2 change over
-					P  = Pickup
-			Output is a dictionary that contains, Local and Remote Currents, Diff and
-			Restraint
+		Inputs:
+			Irem = Remote Current (this should be set negative to show outflow)
+			S1 = Diff characteristic slope 1
+			S2 = Diff characteristic slope 2
+			BP = Slope 1 to 2 change over
+			P  = Pickup
+		Output is a dictionary that contains, Local and Remote Currents, Diff and
+		Restraint
 		"""
 	
 		Iloc = - Irem
@@ -256,23 +254,19 @@ class L90_3Term:
 	def plotcurve(self, plotrange=10):
 		fig = plt.figure()
 		plt.plot(
-						self.plotpairs(
-										ascending=False,
-										plotrange=plotrange
-										)[0],
-						self.plotpairs(
-										ascending=False,
-										plotrange=plotrange
-										)[1]
-						)
+			self.plotpairs(
+					ascending=False,
+					plotrange=plotrange
+					)[0],
+			self.plotpairs(
+					ascending=False,
+					plotrange=plotrange
+					)[1]
+				)
 		plt.plot(
-						self.plotpairs(
-										plotrange=plotrange
-										)[0],
-						self.plotpairs(
-										plotrange=plotrange
-										)[1]
-						)
+			self.plotpairs(plotrange=plotrange)[0],
+			self.plotpairs(plotrange=plotrange)[1]
+			)
 		plt.xlim(0, plotrange)
 		plt.ylim(0, plotrange)
 		plt.grid(True)
@@ -286,12 +280,12 @@ class L90_3Term:
 		"""the table function returns a table of results that show the resistive
 		coverage for different voltages and CT ratios. By changing the outflow value
 		from 1.0pu the system can be tested for different sensitivities.
-			Inputs:
-					outflow = amount of current leaving the remote end 1.0pu default
-					S1 = Diff characteristic slope 1
-					S2 = Diff characteristic slope 2
-					BP = Slope 1 to 2 change over
-					P  = Pickup
+		Inputs:
+			Outflow = amount of current leaving the remote end 1.0pu default
+			S1 = Diff characteristic slope 1
+			S2 = Diff characteristic slope 2
+			BP = Slope 1 to 2 change over
+			P  = Pickup
 		"""
 		voltages = [11, 22, 33, 66, 110, 132, 220]
 		cts = [100, 200, 400, 600, 800, 1200, 2000]
@@ -330,9 +324,10 @@ class P543:
 		"""The rest function calculates the restraint current for a line
 		differental application using the set characteristic along with the local
 		and remote currents. Once the line end currents are calculated, they are
-		combined and returned. Inputs:
-					Iloc = Local Current
-					Irem = Remote Current (this should be set negative to show outflow)
+		combined and returned. 
+		Inputs:
+			Iloc = Local Current
+			Irem = Remote Current (this should be set negative to show outflow)
 		"""
 	
 		return (np.abs(Iloc) + np.abs(Irem)) / 2
@@ -351,9 +346,9 @@ class P543:
 				out = 'Trip'
 		else:
 			restraint = (
-									self.K2 * self.rest(Iloc, Irem) + (self.K1 - self.K2) *
-									self.IS2 + self.IS1
-									)
+					self.K2 * self.rest(Iloc, Irem) + (self.K1 - self.K2) *
+					self.IS2 + self.IS1
+					)
 			if self.diff(Iloc, Irem) > restraint:
 				out = 'Trip'
 		return out
@@ -394,10 +389,10 @@ class P543:
 	def sysvals(self, Irem=-1):
 		"""sysvalues are used to calculate the operating point given a characteristic
 		and remote outflow current.
-			Inputs:
-					Irem = Remote Current (this should be set negative to show outflow)
-			Output is a dictionary that contains, Local and Remote Currents, Diff and
-			Restraint
+		Inputs:
+			Irem = Remote Current (this should be set negative to show outflow)
+		Output is a dictionary that contains, Local and Remote Currents, Diff and
+		Restraint
 		"""
 	
 		Iloc = - Irem
@@ -432,23 +427,19 @@ class P543:
 	def plotcurve(self, plotrange=10):
 		fig = plt.figure()
 		plt.plot(
-						self.plotpairs(
-										ascending=False,
-										plotrange=plotrange
-										)[0],
-						self.plotpairs(
-										ascending=False,
-										plotrange=plotrange
-										)[1]
-						)
+			self.plotpairs(
+					ascending=False,
+					plotrange=plotrange
+					)[0],
+			self.plotpairs(
+					ascending=False,
+					plotrange=plotrange
+					)[1]
+			)
 		plt.plot(
-						self.plotpairs(
-										plotrange=plotrange
-										)[0],
-						self.plotpairs(
-										plotrange=plotrange
-										)[1]
-						)
+			self.plotpairs(plotrange=plotrange)[0],
+			self.plotpairs(plotrange=plotrange)[1]
+			)
 		plt.xlim(0, plotrange)
 		plt.ylim(0, plotrange)
 		plt.grid(True)
@@ -465,11 +456,11 @@ def rest2TGround(Iloc, Irem, S1=0.3, S2=0.5, BP=8, sigma=0):
 	remote currents. Once the line end currents are calculated, they are combined
 	and returned.
 	Inputs:
-					Iloc = Local Current
-					Irem = Remote Current (this should be set negative to show outflow)
-					S1 = Diff characteristic slope 1
-					S2 = Diff characteristic slope 2
-					BP = Slope 1 to 2 change over
+		Iloc = Local Current
+		Irem = Remote Current (this should be set negative to show outflow)
+		S1 = Diff characteristic slope 1
+		S2 = Diff characteristic slope 2
+		BP = Slope 1 to 2 change over
 	"""
 
 	if Iloc ** 2 < BP ** 2:
