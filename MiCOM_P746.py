@@ -1,4 +1,4 @@
-# from IPython.display import Image
+from IPython.display import Image
 
 
 class MiCOM_P746(object):
