@@ -107,8 +107,10 @@ class MiCOM_P746(object):
                          CTLocation='Bus1',
                          PolarityBus1=True,
                          Equipment='None'):
-        if CTLocation not in ['Bus1', 'Bus2', 'Not Fitted']:
-            raise ValueError('CT location must be either Bus1 or Bus2')
+        locationlist = ['Bus1', 'Bus2', 'Not Fitted']
+        if CTLocation not in locationlist:
+            raise ValueError(
+                'CT location must be in: %s' % ', '.join(locationlist))
 
         equipmentlist = [
             'None', 'Breaker Only', 'Isolator Only', 'Breaker&Isolator'
