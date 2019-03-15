@@ -4,14 +4,14 @@
 class MiCOM_P746(object):
 
 	def __init__(
-							self,
-							PlantReference='<SUB><BAY><DEV>',
-							Description='Example',
-							CTs=[],
-							PTOCs=[],
-							Ifault3ph=10000,
-							IfaultSLG=10000
-							):
+			self,
+			PlantReference='<SUB><BAY><DEV>',
+			Description='Example',
+		        CTs=[],
+			PTOCs=[],
+			Ifault3ph=10000,
+			IfaultSLG=10000
+			):
 								
 		self.PlantReference = PlantReference
 		self.Description = Description
@@ -35,11 +35,11 @@ class MiCOM_P746(object):
 	def BB12Coupling(self, value):
 		
 		settinglist = [
-										'None',
-										'Breaker Only',
-										'Isolator Only',
-										'Breaker&Isolator'
-										]
+                                'None',
+				'Breaker Only',
+				'Isolator Only',
+				'Breaker&Isolator'
+				]
 		if value not in settinglist:
 			raise ValueError('Setting needs to be from: %s' % (', '.join(settinglist)))
 		self._BB12Coupling = {
